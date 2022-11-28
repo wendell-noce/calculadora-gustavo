@@ -1,0 +1,145 @@
+.steps {
+  .box {
+    margin-bottom: 25px;
+  }
+
+  .mat-step-header {
+    display: none !important;
+  }
+
+  .mat-stepper-horizontal {
+    background-color: transparent;
+
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      margin-bottom: 35px;
+      margin-top: 0;
+
+      @media (min-width: 767px) {
+        font-size: 30px;
+      }
+
+      span {
+        color: var(--pink-color);
+      }
+    }
+  }
+
+  .mat-form-field {
+    width: 100%;
+    .mat-form-field-ripple {
+      background-color: #fff;
+    }
+
+    .mat-form-field-label {
+      color: #fff;
+    }
+
+    &.mat-focused {
+      .mat-form-field-label {
+        color: var(--pink-color);
+      }
+      .mat-form-field-ripple {
+        background-color: var(--pink-color);
+      }
+
+      .mat-icon {
+        color: var(--pink-color);
+      }
+    }
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    background-color: #fff;
+  }
+
+  .mat-radio-button {
+    margin-right: 20px;
+    .mat-radio-outer-circle {
+      border-color: #fff;
+    }
+  }
+  .mat-slider {
+    width: 100%;
+  }
+  .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb {
+    background-color: var(--pink-color);
+    width: 30px;
+    height: 30px;
+    bottom: -15px;
+  }
+
+  .mat-slider-horizontal .mat-slider-track-wrapper {
+    background-color: #fff;
+  }
+
+  .btn {
+    width: 250px;
+    margin-top: 15px;
+
+    &.mat-button-disabled {
+      background-color: #ccc;
+      opacity: .7;
+      color: #fff;
+    }
+  }
+
+  .actions {
+    width: 100%;
+
+    .btn {
+      width: 45%;
+    }
+  }
+
+  .mat-card {
+    cursor: pointer;
+    border: 1px solid var(--pink-color);
+    background: var(--primary-color);
+    margin-bottom: 15px;
+
+    color: #fff;
+
+    &.card-selected {
+      background: var(--pink-color);
+      border: 1px solid var(--pink-color);
+    }
+
+    &-header-text {
+      margin: 0;
+    }
+
+    &-header {
+      width: 100%;
+    }
+
+    &.result-card {
+      background-color: #fff;
+      color: var(--primary-color);
+    }
+  }
+
+  mat-card:hover .selection {
+    opacity: 1;
+  }
+  mat-card.mat-elevation-z4 .selection {
+    opacity: 1;
+  }
+  .card-selected {
+    border: 2px solid var(--pink-color);
+  }
+
+  .selection {
+    opacity: 0;
+    cursor: pointer;
+    color: var(--pink-color);
+    background: #fff;
+    position: absolute;
+    right:-10px;
+    top:-10px;
+    border-radius: 100%;
+    height: 24px;
+    width: 24px;
+  }
+}

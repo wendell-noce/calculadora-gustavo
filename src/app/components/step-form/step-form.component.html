@@ -1,0 +1,168 @@
+<div class="steps">
+  <mat-horizontal-stepper linear #stepper id="stepper" (selectionChange)="onStepChange($event)">
+
+    <!-- Step inicial -->
+    <mat-step label="Step 1">
+      <h2>
+        Digite seus dados para calcular seu gasto calórico totalmente
+        grátis
+      </h2>
+        <form [formGroup]="userForm">
+          <mat-form-field appearance="fill" color="primary">
+            <mat-label>Nome</mat-label>
+            <input type="email" formControlName="nome" matInput autocomplete="off" />
+            <mat-icon matSuffix>person_pin</mat-icon>
+
+            <mat-error>
+              Seu email não é valido.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill" color="primary">
+            <mat-label>Email</mat-label>
+            <input type="email" formControlName="email" matInput autocomplete="off" />
+            <mat-icon matSuffix>alternate_email</mat-icon>
+
+            <mat-error *ngIf="email.invalid">
+              Seu email não é valido.
+            </mat-error>
+          </mat-form-field>
+        <button mat-raised-button color="accent" class="btn" [disabled]="!userForm.valid" matStepperNext>Avançar</button>
+        </form>
+    </mat-step>
+
+     <!-- Segundo step -->
+     <mat-step #step2 label="Step 2">
+      <h2>Preencha suas medidas:</h2>
+
+      <div class="box">
+        <p><span>Idade:</span> <span> {{age}} </span></p>
+        <mat-slider
+          thumbLabel
+          step="1"
+          min="18"
+          max="100"
+          aria-label="units"
+          (change)="ageUpdate($event)"
+          [value]="age"
+          ></mat-slider>
+      </div>
+
+      <div class="box">
+        <p><span>Altura:</span> <span> {{altura / 100}} m </span> </p>
+        <mat-slider
+          thumbLabel
+          step="1"
+          min="80"
+          max="220"
+          aria-label="units"
+          (change)="updateAltura($event)"
+          [value]="altura"
+          ></mat-slider>
+      </div>
+
+      <div class="box">
+        <p><span>Peso:</span> <span> {{peso}} kg </span> </p>
+        <mat-slider
+          thumbLabel
+          step="1"
+          min="10"
+          max="280"
+          aria-label="units"
+          (change)="updatePeso($event)"
+          [value]="peso"
+          ></mat-slider>
+      </div>
+
+      <div class="actions d-flex justify-content-between">
+        <button mat-raised-button color="accent" class="btn" matStepperPrevious>Voltar</button>
+        <button mat-raised-button color="accent" class="btn" matStepperNext>Avançar</button>
+      </div>
+
+    </mat-step>
+
+    <!-- Terceiro Step -->
+    <mat-step #step3 label="Step 3">
+      <h2>Qual o seu nível de atividade física?
+      </h2>
+
+      <mat-card (click)="selectActivity(1)" [ngClass]="{'card-selected mat-elevation-z4': selectedFA === 1} ">
+        <span [matTooltip]="selectedFA ? 'Selecionado' : 'Selecionar'" class="selection">
+          <mat-icon>check_circle</mat-icon>
+          </span>
+        <mat-card-header>
+          <mat-card-title>Sedentário</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            Não faz nenhum exercício físico e quase nenhuma atividade diária (não sobe escadas, trabalha sentado, só anda de carro)
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card (click)="selectActivity(2)" [ngClass]="{'card-selected mat-elevation-z4': selectedFA === 2} ">
+        <span [matTooltip]="selectedFA ? 'Selecionado' : 'Selecionar'" class="selection">
+          <mat-icon>check_circle</mat-icon>
+          </span>
+        <mat-card-header>
+          <mat-card-title>Levemente ativo</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            Pratica exercícios leves como caminhada, aula de dança, ou algum esporte em média de 1 a 3 dias na semana.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card (click)="selectActivity(3)" [ngClass]="{'card-selected mat-elevation-z4': selectedFA === 3} ">
+        <span [matTooltip]="selectedFA ? 'Selecionado' : 'Selecionar'" class="selection">
+          <mat-icon>check_circle</mat-icon>
+          </span>
+        <mat-card-header>
+          <mat-card-title>Moderadamente ativo</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            Treina musculação ou funcional ou crossfit e aeróbico de 3 a 5 vezes na semana, com rotina de pouca atividade, só anda de carro, elevador, trabalha sentado.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card (click)="selectActivity(4)" [ngClass]="{'card-selected mat-elevation-z4': selectedFA === 4} ">
+        <span [matTooltip]="selectedFA ? 'Selecionado' : 'Selecionar'" class="selection">
+          <mat-icon>check_circle</mat-icon>
+          </span>
+        <mat-card-header>
+          <mat-card-title>Muito Ativo</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            Treina musculação ou crossfit ou funcional e aeróbico com alta intensidade de 5 a 7 dias na semana, rotina muito intensa de atividade, pratica outro esporte.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="actions d-flex justify-content-between">
+        <button mat-raised-button color="accent" class="btn" matStepperPrevious>Voltar</button>
+        <button mat-raised-button color="accent" class="btn" matStepperNext>Calcular</button>
+      </div>
+
+    </mat-step>
+
+    <!-- Step final -->
+    <mat-step>
+      <h2>
+        Esse é seu resultado:
+      </h2>
+
+      <h2>
+        Gasto calórico diário total é de<br>
+         <span> {{totalCalories.toFixed(2)}} </span> calorias
+      </h2>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
