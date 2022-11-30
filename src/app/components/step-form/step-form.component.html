@@ -12,19 +12,15 @@
             <mat-label>Nome</mat-label>
             <input type="email" formControlName="nome" matInput autocomplete="off" />
             <mat-icon matSuffix>person_pin</mat-icon>
-
-            <mat-error>
-              Seu email não é valido.
-            </mat-error>
+            <mat-error> Campo obrigatório </mat-error>
           </mat-form-field>
+          
+          
           <mat-form-field appearance="fill" color="primary">
             <mat-label>Email</mat-label>
             <input type="email" formControlName="email" matInput autocomplete="off" />
             <mat-icon matSuffix>alternate_email</mat-icon>
-
-            <mat-error *ngIf="email.invalid">
-              Seu email não é valido.
-            </mat-error>
+            <mat-error> Email inválido </mat-error>
           </mat-form-field>
         <button mat-raised-button color="accent" class="btn" [disabled]="!userForm.valid" matStepperNext>Avançar</button>
         </form>

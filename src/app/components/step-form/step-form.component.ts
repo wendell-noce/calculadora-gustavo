@@ -1,3 +1,4 @@
+import { CalculadoraService } from './../../core/calculadora.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -18,17 +19,15 @@ export class StepFormComponent implements OnInit {
   totalCalories: any = 0;
   userForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _calculadoraService: CalculadoraService
+    ) {
     this.userForm = this._formBuilder.group({
       nome: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email ]],
+      email: [null, [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')] ],
     })
   }
-
-
-
-  nome = new FormControl(null, [Validators.required]);
-  email = new FormControl('', [Validators.required, Validators.email]);
 
   ngOnInit(): void {
 
@@ -55,6 +54,25 @@ export class StepFormComponent implements OnInit {
 
   onStepChange( event: any ){
     this.calculateCalories();
+
+    if ( event.selectedIndex === 3 ) {
+      const body = {
+        nome: this.nome,
+        email: this.email,
+        idade: this.age,
+        altura: this.altura,
+        fa: this.selectedFA
+      }
+
+      this._calculadoraService.sendMail(body).subscribe(
+        res => {
+          console.log(res);
+      },
+        err => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   calculateCalories(){
@@ -74,5 +92,13 @@ export class StepFormComponent implements OnInit {
         break;
     }
     this.totalCalories = fa * (655.09+(9.563* this.peso)+(1.85 * this.altura)-(4.676 * this.age));
+  }
+
+  get nome() {
+    return this.userForm.get('nome')?.value;
+  }
+
+  get email() {
+    return this.userForm.get('email')?.value;
   }
 }
